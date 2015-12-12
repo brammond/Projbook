@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Title -->
+    <title>Projbook</title>
+
+    <!-- Bootstrap -->
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Prism -->
+    <script src="Scripts/prism.js"></script>
+    <link href="Content/prism.css" rel="stylesheet" />
+
+    <!-- Projbook -->
+    <link href="Content/projbook.css" rel="stylesheet">
+</head>
+<body role="document">
+    <div class="container">
+        <div class="row">
+
+            <!--Nav Bar -->
+            <nav class="col-md-3 bs-docs-sidebar">
+                <ul id="sidebar" class="nav nav-stacked fixed">
+                    <li>
+                        <a href="#Pagejumpstartmd">Jump start</a>
+                        <ul class="nav nav-stacked">
+                            <li><a href="#Pagejumpstartmd-set-up">Set up</a></li>
+                            <li><a href="#Pagejumpstartmd-extract-csharp-file-content">Extract csharp file content</a></li>
+                            <li><a href="#Pagejumpstartmd-file-selector">File selector</a></li>
+                            <li><a href="#Pagejumpstartmd-member-selector">Member selector</a></li>
+                            <li><a href="#Pagejumpstartmd-aggregate-members">Aggregate members</a></li>
+                            <li><a href="#Pagejumpstartmd-extraction-options">Extraction options</a></li>
+                            <li><a href="#Pagejumpstartmd-block-structure">Block structure</a></li>
+                            <li><a href="#Pagejumpstartmd-block-content">Block content</a></li>
+                            <li><a href="#Pagejumpstartmd-combine-with-member-aggregation">Combine with member aggregation</a></li>
+                            <li><a href="#Pagejumpstartmd-extract-xml-file-content">Extract Xml file content</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#Pagetemplatemd">Template</a>
+                        <ul class="nav nav-stacked">
+                            <li><a href="#Pagetemplatemd-html-and-pdf-templates">HTML and PDF templates</a></li>
+                            <li><a href="#Pagetemplatemd-syntax">Syntax</a></li>
+                            <li><a href="#Pagetemplatemd-model">Model</a></li>
+                            <li><a href="#Pagetemplatemd-pages">Pages</a></li>
+                            <li><a href="#Pagetemplatemd-sections">Sections</a></li>
+                            <li><a href="#Pagetemplatemd-default-template">Default template</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#Pagereferencemd">Reference</a>
+                        <ul class="nav nav-stacked">
+                            <li><a href="#Pagereferencemd-csharp-member-matching">CSharp member matching</a></li>
+                            <li><a href="#Pagereferencemd-namespaces">Namespaces</a></li>
+                            <li><a href="#Pagereferencemd-classes">Classes</a></li>
+                            <li><a href="#Pagereferencemd-methods">Methods</a></li>
+                            <li><a href="#Pagereferencemd-properties">Properties</a></li>
+                            <li><a href="#Pagereferencemd-indexers">Indexers</a></li>
+                            <li><a href="#Pagereferencemd-events">Events</a></li>
+                            <li><a href="#Pagereferencemd-constructors">Constructors</a></li>
+                            <li><a href="#Pagereferencemd-destructors">Destructors</a></li>
+                            <li><a href="#Pagereferencemd-generics">Generics</a></li>
+                            <li><a href="#Pagereferencemd-options">Options</a></li>
+                            <li><a href="#Pagereferencemd-xml-member-matching">Xml member matching</a></li>
+                            <li><a href="#Pagereferencemd-source-example">Source example</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <!--Main Content -->
+            <div class="col-md-9">
+                <section id="Pagejumpstartmd">
+                    <div class="page-header">
+                        <h1>Jump start</h1>
+                    </div>
+                    
+                    <div id="Pagejumpstartmd-set-up">
+                        
+<h2>Set up</h2>
+<ol>
+<li>Create a documentation project</li>
+<li>Add <a href="https://www.nuget.org/packages/Projbook">Projbook</a> using nuget</li>
+<li>Update your pages in markdown format in <code>Page</code> folder</li>
+<li>Update <code>projbook.json</code> to match your files:</li>
+</ol>
+<pre><code class="language-json">{
+  &quot;title&quot;: &quot;Projbook&quot;,
+  &quot;template-html&quot;: &quot;template.html&quot;,
+  &quot;output-html&quot;: &quot;projbook.html&quot;,
+  &quot;pages&quot;: [
+    {
+      &quot;title&quot;: &quot;Jump start&quot;,
+      &quot;path&quot;: &quot;Page/jumpstart.md&quot;
+    },
+    {
+      &quot;title&quot;: &quot;Template&quot;,
+      &quot;path&quot;: &quot;Page/template.md&quot;
+    },
+    {
+      &quot;title&quot;: &quot;Reference&quot;,
+      &quot;path&quot;: &quot;Page/reference.md&quot;
+    }
+  ]
+}</code></pre>
+<ol start="5">
+<li>Build the documentation project</li>
+<li>The generated documentation will be available in your <code>TargetDir</code></li>
+</ol>
+
+                    </div>
+                    <div id="Pagejumpstartmd-extract-csharp-file-content">
+                        
+<h2>Extract csharp file content</h2>
+<p>For the following examples we're going to use the following file as snippet source:</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Projbook.Documentation.Code
+{
+    public class SampleClass
+    {
+        private void Method(string input)
+        {
+            Console.WriteLine(input);
+        }
+
+        private void Method(int input)
+        {
+            Console.WriteLine(42 + input);
+        }
+    }
+}</code></pre>
+<p>Extracting file content is doable by simply using a regular code block syntax and add the extraction rule between <code>[]</code>.
+Extraction rule syntax include the target file, the member to extract and the extraction options.</p>
+
+                    </div>
+                    <div id="Pagejumpstartmd-file-selector">
+                        
+<h3>File selector</h3>
+<p>While using code block it's possible to reference a csharp file using <code>csharp[Path/To/The/File.cs]</code>.</p>
+<p>If nothing else is defined, the whole file content will be extracted:</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Projbook.Documentation.Code
+{
+    public class SampleClass
+    {
+        private void Method(string input)
+        {
+            Console.WriteLine(input);
+        }
+
+        private void Method(int input)
+        {
+            Console.WriteLine(42 + input);
+        }
+    }
+}</code></pre>
+<p>Using csharp as syntax allows to extract specific members (see below), however any syntax could be used for extracting a file content.
+It's valid to extract the same file as txt using <code>txt[Code/SampleClass.cs]</code> but the syntax highlighting will be lost:</p>
+<pre><code class="language-text">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Projbook.Documentation.Code
+{
+    public class SampleClass
+    {
+        private void Method(string input)
+        {
+            Console.WriteLine(input);
+        }
+
+        private void Method(int input)
+        {
+            Console.WriteLine(42 + input);
+        }
+    }
+}</code></pre>
+
+                    </div>
+                    <div id="Pagejumpstartmd-member-selector">
+                        
+<h3>Member selector</h3>
+<p>The second part of the extraction rule is the member name, you can either use the raw name or the full qualified name. All of following extraction rule will extract the same content:</p>
+<ul>
+<li><code>csharp[Path/To/The/File.cs] SampleClass.Method(string)</code></li>
+<li><code>csharp[Path/To/The/File.cs] Projbook.Documentation.Code.SampleClass.Method(string)</code></li>
+</ul>
+<pre><code class="language-csharp">private void Method(string input)
+{
+    Console.WriteLine(input);
+}</code></pre>
+
+                    </div>
+                    <div id="Pagejumpstartmd-aggregate-members">
+                        
+<h3>Aggregate members</h3>
+<p>Thanks to the partial member matching, in case of ambigous matching Projbook will extract all matching members and stack them up. Here <code>Method</code> having overloads, <code>csharp[Code/SampleClass.cs] Method</code> will extract all of them, note that the member name is not fully qualified but it could if needed or preferred:</p>
+<pre><code class="language-csharp">private void Method(string input)
+{
+    Console.WriteLine(input);
+}
+
+private void Method(int input)
+{
+    Console.WriteLine(42 + input);
+}</code></pre>
+
+                    </div>
+                    <div id="Pagejumpstartmd-extraction-options">
+                        
+<h2>Extraction options</h2>
+<p>During the extraction process Projbook can process snippet content in extracting block structure or the code block. This is doable by adding an option prefix to the extraction rule.</p>
+
+                    </div>
+                    <div id="Pagejumpstartmd-block-structure">
+                        
+<h3>Block structure</h3>
+<p>The <code>=</code> char represents the top and the bottom of a code block. With <code>csharp[Code/SampleClass.cs] =SampleClass</code> Projbook will perform a member extraction and will replace the code content by <code>// ...</code>:</p>
+<pre><code class="language-csharp">public class SampleClass
+{
+    // ...
+}</code></pre>
+
+                    </div>
+                    <div id="Pagejumpstartmd-block-content">
+                        
+<h3>Block content</h3>
+<p>The <code>-</code> char represents the content of a code block. With <code>csharp[Code/SampleClass.cs] -Method(int)</code> Projbook will perform a member extraction isolating the code content:</p>
+<pre><code class="language-csharp">Console.WriteLine(42 + input);</code></pre>
+
+                    </div>
+                    <div id="Pagejumpstartmd-combine-with-member-aggregation">
+                        
+<h3>Combine with member aggregation</h3>
+<p>You can combine rules for extracting and processing many member with options. The rule <code>csharp[Code/SampleClass.cs] =Method</code> will find any matching member with name <code>Method</code>, stack them up and remove the code content by <code>// ...</code>:</p>
+<pre><code class="language-csharp">private void Method(string input)
+{
+    // ...
+}
+
+private void Method(int input)
+{
+    // ...
+}</code></pre>
+
+                    </div>
+                    <div id="Pagejumpstartmd-extract-xml-file-content">
+                        
+<h2>Extract Xml file content</h2>
+<p>It is also possible to extract xml content by using XPath as query language, for example, we can export all Import tag in the Projbook's documentation project by using <code>xml[Projbook.Documentation.csproj] //Import</code>:</p>
+<pre><code class="language-xml">&lt;Import
+  Project=&quot;..\packages\Projbook.1.0.1\build\Projbook.props&quot;
+  Condition=&quot;Exists('..\packages\Projbook.1.0.1\build\Projbook.props')&quot; /&gt;
+
+&lt;Import
+  Project=&quot;$(SolutionDir)build\Projbook.settings&quot;
+  Condition=&quot;Exists('$(SolutionDir)build\Projbook.settings')&quot; /&gt;
+
+&lt;Import
+  Project=&quot;$(MSBuildToolsPath)\Microsoft.CSharp.targets&quot; /&gt;
+
+&lt;Import
+  Project=&quot;..\packages\Projbook.1.0.1\build\Projbook.targets&quot;
+  Condition=&quot;Exists('..\packages\Projbook.1.0.1\build\Projbook.targets')&quot; /&gt;</code></pre>
+                    </div>
+                </section>
+                <section id="Pagetemplatemd">
+                    <div class="page-header">
+                        <h1>Template</h1>
+                    </div>
+                    
+                    <div id="Pagetemplatemd-html-and-pdf-templates">
+                        
+<h2>HTML and PDF templates</h2>
+<p>There are two template file that you can define in <code>projbook.json</code>:</p>
+<ul>
+<li><code>template-html</code>: Used as template for HTML generation.</li>
+<li><code>template-pdf</code>: Used as template for PDF generation.</li>
+</ul>
+<p>By default the generated file is going to have the same name as the template one with the <code>-generated</code> sufix but you can define your own using:</p>
+<ul>
+<li><code>output-html</code>: The output file for <code>template-html</code></li>
+<li><code>output-pdf</code>: The output file for <code>template-pdf</code></li>
+</ul>
+<p>Default templates using bootstrap can be directly used as it without any changes but can be modified or entirely rewritte if needed.
+You can use html template, pdf or both but at least one must be definied.</p>
+
+                    </div>
+                    <div id="Pagetemplatemd-syntax">
+                        
+<h2>Syntax</h2>
+<p>Templates use html with [Razor syntax](http://www.asp.net/web-pages/overview/getting-started/introducing-razor-syntax-(c) having relevant information about documentation as model.</p>
+
+                    </div>
+                    <div id="Pagetemplatemd-model">
+                        
+<h2>Model</h2>
+<p>The model is usable using the <code>@Model</code> variable using razor and contains top level member:</p>
+<ul>
+<li><code>Model.Title</code>: The documentation title from the configuration</li>
+<li><code>Model.Pages</code>: An array of Page (mode details below)</li>
+</ul>
+
+                    </div>
+                    <div id="Pagetemplatemd-pages">
+                        
+<h3>Pages</h3>
+<p>The <code>Page</code> class contains following members that can be used in templates</p>
+<pre><code class="language-csharp">/// &lt;summary&gt;
+/// The page id.
+/// &lt;/summary&gt;
+public string Id { get; private set; }</code></pre>
+<pre><code class="language-csharp">/// &lt;summary&gt;
+/// The page title.
+/// &lt;/summary&gt;
+public string Title { get; private set; }</code></pre>
+<pre><code class="language-csharp">/// &lt;summary&gt;
+/// The pre section content.
+/// &lt;/summary&gt;
+public string PreSectionContent { get; private set; }</code></pre>
+<pre><code class="language-csharp">/// &lt;summary&gt;
+/// The page sections.
+/// &lt;/summary&gt;
+public Section[] Sections { get; private set; }</code></pre>
+
+                    </div>
+                    <div id="Pagetemplatemd-sections">
+                        
+<h3>Sections</h3>
+<p>The <code>Section</code> class contains following members that can be used in templates</p>
+<pre><code class="language-csharp">/// &lt;summary&gt;
+/// The section id.
+/// &lt;/summary&gt;
+public string Id { get; private set; }</code></pre>
+<pre><code class="language-csharp">/// &lt;summary&gt;
+/// The section title.
+/// &lt;/summary&gt;
+public string Title { get; private set; }</code></pre>
+<pre><code class="language-csharp">/// &lt;summary&gt;
+/// The section content.
+/// &lt;/summary&gt;
+public string Content { get; private set; }</code></pre>
+
+                    </div>
+                    <div id="Pagetemplatemd-default-template">
+                        
+<h2>Default template</h2>
+<p>See default <a href="https://github.com/defrancea/Projbook/blob/master/src/Projbook.Example/template.html">template.html</a> and <a href="https://github.com/defrancea/Projbook/blob/master/src/Projbook.Example/template-pdf.html">template-pdf.html</a></p>
+                    </div>
+                </section>
+                <section id="Pagereferencemd">
+                    <div class="page-header">
+                        <h1>Reference</h1>
+                    </div>
+                    
+                    <div id="Pagereferencemd-csharp-member-matching">
+                        
+<h2>CSharp member matching</h2>
+<p>Here is listed all possible member matching. All of them can use partial or fully qualified name, in case of multiple matching Projbook will aggregate all matching members. The member matching never consider memeber type and will apply on any member simply based on the name.
+The member matching follows this syntax <code>csharp[&lt;fileName&gt;] &lt;optionalOption&gt;&lt;member&gt;</code>.</p>
+<ul>
+<li><code>&lt;fileName&gt;</code>: Any file name in the current documentation project, it's possible to reach code content outside of the document project by adding a project reference from the documentation project to another solution's project.</li>
+<li><code>&lt;optionalOption&gt;</code>: Options member, see <a href="#page%2freference.md-options">options</a>.</li>
+<li><code>&lt;member&gt;</code>: The member to extract, see the following section for details on all supported member matching</li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-namespaces">
+                        
+<h3>Namespaces</h3>
+<ul>
+<li><code>csharp[File.cs] MyNamespace</code>: Match the namespace <code>MyNameSpace</code></li>
+<li><code>csharp[File.cs] My.Namespace</code>: Match the namespace <code>My.NameSpace</code> or the sub namespace <code>Namespace</code> of <code>My</code> namespace</li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-classes">
+                        
+<h3>Classes</h3>
+<ul>
+<li><code>csharp[File.cs] ClassName</code>: Match any class nammed <code>ClassName</code></li>
+<li><code>csharp[File.cs] ClassName.SubClassName</code>: Match any class nammed <code>SubClassName</code> located inside <code>ClassName</code></li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-methods">
+                        
+<h3>Methods</h3>
+<ul>
+<li><code>csharp[File.cs] ClassName.MethodName</code>: Match any method nammed <code>MethodName</code> of the class <code>ClassName</code></li>
+<li><code>csharp[File.cs] MethodName</code>: Match any method nammed <code>MethodName</code></li>
+<li><code>csharp[File.cs] MethodName(string, int)</code>: Match any method nammed <code>MethodName</code> with two parameters of type string and int</li>
+<li><code>csharp[File.cs] (string, int)</code>: Match any method with two parameters of type string and int</li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-properties">
+                        
+<h3>Properties</h3>
+<ul>
+<li><code>csharp[File.cs] ClassName.PropertyName</code>: Match any property nammed <code>PropertyName</code> of the class <code>ClassName</code></li>
+<li><code>csharp[File.cs] Property</code>: Match any property nammed <code>PropertyName</code></li>
+<li><code>csharp[File.cs] Property.get</code>: Match the getter of any property nammed <code>PropertyName</code></li>
+<li><code>csharp[File.cs] get</code>: Match any getter</li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-indexers">
+                        
+<h3>Indexers</h3>
+<ul>
+<li><code>csharp[File.cs] ClassName.[int]</code>: Match any indexer using the type <code>int</code> of the class <code>ClassName</code></li>
+<li><code>csharp[File.cs] [int]</code>: Match any indexer using the type <code>int</code></li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-events">
+                        
+<h3>Events</h3>
+<ul>
+<li><code>csharp[File.cs] ClassName.EventName</code>: Match any event nammed <code>EventName</code> of the class <code>ClassName</code></li>
+<li><code>csharp[File.cs] EventName</code>: Match any property nammed <code>EventName</code></li>
+<li><code>csharp[File.cs] EventName.add</code>: Match the adder of any event nammed <code>EventName</code></li>
+<li><code>csharp[File.cs] add</code>: Match any adder</li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-constructors">
+                        
+<h3>Constructors</h3>
+<ul>
+<li><code>csharp[File.cs] ClassName.&lt;Constructor&gt;</code>: Match any constructor of the class <code>ClassName</code></li>
+<li><code>csharp[File.cs] &lt;Constructor&gt;</code>: Match any constructor</li>
+<li><code>csharp[File.cs] &lt;Constructor&gt;(string, int)</code>: Match any constructor with two parameters of type string and int</li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-destructors">
+                        
+<h3>Destructors</h3>
+<ul>
+<li><code>csharp[File.cs] ClassName.&lt;Destructor&gt;</code>: Match any destructor of the class <code>ClassName</code></li>
+<li><code>csharp[File.cs] &lt;Destructor&gt;</code>: Match any destructor</li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-generics">
+                        
+<h3>Generics</h3>
+<ul>
+<li><code>csharp[File.cs] ClassName{T}</code>: Match any class nammed <code>ClassName</code> with a type parameter <code>T</code></li>
+<li><code>csharp[File.cs] ClassName{T, U}</code>: Match any class nammed <code>ClassName</code> with two type parameter <code>T</code> and <code>U</code></li>
+<li><code>csharp[File.cs] ClassName.MethodName{T}</code>: Match any method nammed <code>MethodName</code> of the class <code>ClassName</code> with a type parameter <code>T</code></li>
+<li><code>csharp[File.cs] ClassName.MethodName{T}(T)</code>: Match any method nammed <code>MethodName</code> of the class <code>ClassName</code> with a type parameter <code>T</code> having a parameter of type <code>T</code></li>
+<li><code>csharp[File.cs] ClassName{T}.MethodName{U}(U)</code>: Match any method nammed <code>MethodName</code> of the class <code>ClassName</code> having a type parater <code>T</code> with a type parameter <code>U</code> having a parameter of type <code>U</code></li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-options">
+                        
+<h3>Options</h3>
+<ul>
+<li><code>=</code>: Code structure only including the member with all motifier, documentation and signature but replace the code block content by <code>// ...</code></li>
+<li><code>-</code>: Code content only, it will remove the code structure and will produce what's located inside the code block only</li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-xml-member-matching">
+                        
+<h2>Xml member matching</h2>
+<p>CSharp matching simply follow Projbook's syntax for member matching but use XPath as member selector.
+The member matching follows this syntax <code>csharp[&lt;fileName&gt;] &lt;xpath&gt;</code>.</p>
+<ul>
+<li><code>&lt;fileName&gt;</code>: Any file name in the current documentation project, it's possible to reach code content outside of the document project by adding a project reference from the documentation project to another solution's project.</li>
+<li><code>&lt;xpath&gt;</code>: The XPath query performing the member selection, see <a href="https://msdn.microsoft.com/en-us/library/ms256115">XPath reference</a></li>
+</ul>
+
+                    </div>
+                    <div id="Pagereferencemd-source-example">
+                        
+<h2>Source example</h2>
+<p>Have a look to this documentation pages as example <a href="https://github.com/defrancea/Projbook/tree/master/src/Projbook.Documentation/Page">source</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/projbook.js"></script>
+</body>
+</html>
